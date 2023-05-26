@@ -21,8 +21,7 @@ public class Alimento {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_alimento")
     private Long id;
-    @CreatedDate
-    @Column(name = "data_doacao", nullable = false)
+    @Column(name = "data_doacao")
     private LocalDate dataDoacao;
     @ElementCollection
     @CollectionTable(name = "alimento_tags", joinColumns = @JoinColumn(name = "id_alimento"))
@@ -41,5 +40,10 @@ public class Alimento {
 
     public void desativarAlimento(){
         this.ativo = false;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.dataDoacao = LocalDate.now();
     }
 }

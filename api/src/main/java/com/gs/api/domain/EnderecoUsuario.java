@@ -36,6 +36,8 @@ public class EnderecoUsuario {
     @Column(name = "alimento_ativo", columnDefinition = "BIT(1) DEFAULT 1")
     private Boolean ativo;
 
+
+
     public EnderecoUsuario(EnderecoUsuarioDTO dados) {
         this.cep = dados.cep();
         this.uf = dados.uf();

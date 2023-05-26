@@ -2,6 +2,8 @@ package com.gs.api.service;
 
 import com.gs.api.domain.Alimento;
 import com.gs.api.domain.AlimentoRepository;
+import com.gs.api.domain.Restaurante;
+import com.gs.api.domain.RestauranteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +16,9 @@ public class AlimentoService {
     @Autowired
     AlimentoRepository alimentoRepository;
 
+
     public Alimento salvarAlimento(Alimento newAlimento){
-        return alimentoRepository.save(newAlimento);
+            return alimentoRepository.save(newAlimento);
     }
 
     public Alimento findById(Long id){

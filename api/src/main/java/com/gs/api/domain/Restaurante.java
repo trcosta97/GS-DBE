@@ -45,7 +45,7 @@ public class Restaurante {
         this.nome = dados.nome();
         this.email = dados.email();
         this.senha = dados.senha();
-        this.enderecoRestaurante = dados.endereco();
+        this.enderecoRestaurante = new EnderecoRestaurante(dados.endereco());
         this.cnpj = dados.cnpj();
     }
 

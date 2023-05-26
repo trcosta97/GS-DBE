@@ -39,4 +39,12 @@ public class EnderecoRestaurante {
     public void desativarEndereco(){
         this.ativo = false;
     }
+
+    public EnderecoRestaurante(EnderecoRestauranteDTO dados) {
+        this.cep = dados.cep();
+        this.uf = dados.uf();
+        this.complemento = dados.complemento();
+        this.logradouro = dados.logradouro();
+        this.numero = dados.numero();
+    }
 }

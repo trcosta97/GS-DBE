@@ -19,15 +19,15 @@ import java.time.LocalDate;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_restaurante")
+    @Column(name = "id_usuario")
     private Long id;
-    @Column(name = "nome_restaurante")
+    @Column(name = "nome_usuario")
     private String nome;
     @Column(name = "email_usuario")
     private String email;
     @Column(name = "senha_usuario")
     private String senha;
-    @Column(name = "cnpj_restaurante")
+    @Column(name = "cnpj_usuario")
     private String cnpj;
     @JoinColumn(name = "id_endereco")
     @OneToOne(cascade = CascadeType.ALL)
