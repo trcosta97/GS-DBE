@@ -6,9 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
-import java.util.List;
+
 
 @Entity(name = "restaurante")
 @Table(name = "tb_restaurantes")
@@ -33,13 +34,13 @@ public class Restaurante {
     @OneToOne(cascade = CascadeType.ALL)
     @JsonManagedReference
     private EnderecoRestaurante enderecoRestaurante;
-    @OneToMany(mappedBy = "restauranteDoador", cascade = CascadeType.ALL)
-    private List<Alimento> alimentos;
-    @Column(name = "data_cadastro")
+//    @OneToMany(mappedBy = "restauranteDoador", cascade = CascadeType.ALL)
+//    private List<Alimento> alimentos;
+    @Column(name = "data_cadastro", updatable = false)
     @Temporal(TemporalType.DATE)
     private LocalDate dataCadastro;
-    @Column(name = "alimento_ativo", columnDefinition = "BIT(1) DEFAULT 1")
-    private Boolean ativo;
+    @Column(name = "restaurante_ativo", columnDefinition = "BIT(1) DEFAULT 1")
+    private Boolean ativo = true;
 
     public Restaurante(RestauranteDTO dados) {
         this.nome = dados.nome();
@@ -52,4 +53,10 @@ public class Restaurante {
     public void desativarRestaurante(){
         this.ativo = false;
     }
+
+    @PrePersist
+    protected void prePersist() {
+        dataCadastro = LocalDate.now();
+    }
+
 }

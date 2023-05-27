@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
 
@@ -36,8 +37,8 @@ public class Usuario {
     @Column(name = "data_cadastro")
     @Temporal(TemporalType.DATE)
     private LocalDate dataCadastro;
-    @Column(name = "alimento_ativo", columnDefinition = "BIT(1) DEFAULT 1")
-    private Boolean ativo;
+    @Column(name = "usuario_ativo", columnDefinition = "BIT(1) DEFAULT 1")
+    private Boolean ativo = true;
 
     public Usuario(UsuarioDTO dados) {
         this.nome = dados.nome();
@@ -49,5 +50,10 @@ public class Usuario {
 
     public void desativarUsuario(){
         this.ativo = false;
+    }
+
+    @PrePersist
+    protected void prePersist() {
+        dataCadastro = LocalDate.now();
     }
 }

@@ -22,6 +22,8 @@ public class Alimento {
     @Column(name = "id_alimento")
     private Long id;
     @Column(name = "data_doacao")
+    @CreatedDate
+    @Temporal(TemporalType.DATE)
     private LocalDate dataDoacao;
     @ElementCollection
     @CollectionTable(name = "alimento_tags", joinColumns = @JoinColumn(name = "id_alimento"))
@@ -31,10 +33,11 @@ public class Alimento {
     @JoinColumn(name = "restaurante_doador_id", nullable = false)
     private Restaurante restauranteDoador;
     @Column(name = "alimento_ativo", columnDefinition = "BIT(1) DEFAULT 1")
-    private Boolean ativo;
+    private Boolean ativo = true;
 
     public Alimento(AlimentoDTO dadosAlimento) {
         this.tags = dadosAlimento.tags();
+        this.restauranteDoador = dadosAlimento.restauranteDoador();
     }
 
 
@@ -43,7 +46,7 @@ public class Alimento {
     }
 
     @PrePersist
-    public void prePersist() {
-        this.dataDoacao = LocalDate.now();
+    protected void prePersist() {
+        dataDoacao = LocalDate.now();
     }
 }

@@ -2,7 +2,9 @@ package com.gs.api.controller;
 
 import com.gs.api.domain.Alimento;
 import com.gs.api.domain.AlimentoDTO;
+import com.gs.api.domain.Restaurante;
 import com.gs.api.service.AlimentoService;
+import com.gs.api.service.RestauranteService;
 import com.oracle.svm.core.annotate.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,9 +20,14 @@ public class AlimentoController {
     @Autowired
     private AlimentoService alimentoService;
 
+    @Autowired
+    private RestauranteService restauranteService;
+
     @PostMapping("/alimentos")
-    public ResponseEntity<Alimento> salvarAlimento(@RequestBody AlimentoDTO dadosAlimento){
-        var newAlimento = new Alimento (dadosAlimento);
+    public ResponseEntity<Alimento> salvarAlimento(@RequestBody AlimentoDTO dadosAlimento) {
+        Restaurante restauranteDoador = restauranteService.findRestauranteById(dadosAlimento.restauranteDoador().getId());
+        var newAlimento = new Alimento(dadosAlimento);
+        newAlimento.setRestauranteDoador(restauranteDoador);
         Alimento alimentoSalvo = alimentoService.salvarAlimento(newAlimento);
         return ResponseEntity.ok(alimentoSalvo);
     }
@@ -28,7 +35,7 @@ public class AlimentoController {
     @GetMapping("/alimentos")
     public ResponseEntity<List<Alimento>> todosAlimentosAtivos() {
         List<Alimento> alimentosAtivos = alimentoService.todosAlimentosAtivos();
-        return ResponseEntity.status(HttpStatus.OK).body(alimentosAtivos);
+        return ResponseEntity.ok(alimentosAtivos);
     }
 
     @DeleteMapping("/alimentos/{id}")

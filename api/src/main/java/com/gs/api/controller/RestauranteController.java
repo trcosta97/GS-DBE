@@ -1,15 +1,13 @@
 package com.gs.api.controller;
 
+
 import com.gs.api.domain.Restaurante;
 import com.gs.api.domain.RestauranteDTO;
 import com.gs.api.service.RestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,6 +32,12 @@ public class RestauranteController {
         }else{
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Dados de login inválidos");
         }
+    }
+
+    @GetMapping("/restaurantes")
+    public ResponseEntity<List<Restaurante>> todosRestaurantes(){
+        List<Restaurante> restaurantesAtivos = restauranteService.todosRestaurantesAtivos();
+        return ResponseEntity.ok(restaurantesAtivos);
     }
 
 }
