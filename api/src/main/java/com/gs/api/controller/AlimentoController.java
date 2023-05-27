@@ -5,7 +5,6 @@ import com.gs.api.domain.AlimentoDTO;
 import com.gs.api.domain.Restaurante;
 import com.gs.api.service.AlimentoService;
 import com.gs.api.service.RestauranteService;
-import com.oracle.svm.core.annotate.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,13 +23,20 @@ public class AlimentoController {
     private RestauranteService restauranteService;
 
     @PostMapping("/alimentos")
-    public ResponseEntity<Alimento> salvarAlimento(@RequestBody AlimentoDTO dadosAlimento) {
-        Restaurante restauranteDoador = restauranteService.findRestauranteById(dadosAlimento.restauranteDoador().getId());
-        var newAlimento = new Alimento(dadosAlimento);
-        newAlimento.setRestauranteDoador(restauranteDoador);
-        Alimento alimentoSalvo = alimentoService.salvarAlimento(newAlimento);
-        return ResponseEntity.ok(alimentoSalvo);
+    public ResponseEntity<Alimento> cadastrarAlimento(@RequestBody AlimentoDTO alimentoDTO) {
+        Restaurante restauranteDoador = restauranteService.findRestauranteById(alimentoDTO.restauranteDoadorId());
+        if (restauranteDoador == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Alimento alimento = new Alimento(alimentoDTO);
+        alimento.setRestauranteDoador(restauranteDoador);
+        Alimento novoAlimento = alimentoService.salvarAlimento(alimento);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoAlimento);
     }
+
+
 
     @GetMapping("/alimentos")
     public ResponseEntity<List<Alimento>> todosAlimentosAtivos() {

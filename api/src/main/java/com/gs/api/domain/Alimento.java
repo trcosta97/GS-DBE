@@ -25,9 +25,8 @@ public class Alimento {
     @CreatedDate
     @Temporal(TemporalType.DATE)
     private LocalDate dataDoacao;
-    @ElementCollection
-    @CollectionTable(name = "alimento_tags", joinColumns = @JoinColumn(name = "id_alimento"))
-    @Column(name = "tag")
+    @Column(name = "tags_alimentos", columnDefinition = "CLOB")
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> tags;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "restaurante_doador_id", nullable = false)
@@ -37,9 +36,8 @@ public class Alimento {
 
     public Alimento(AlimentoDTO dadosAlimento) {
         this.tags = dadosAlimento.tags();
-        this.restauranteDoador = dadosAlimento.restauranteDoador();
+        this.restauranteDoador = new Restaurante(dadosAlimento.restauranteDoadorId());
     }
-
 
     public void desativarAlimento(){
         this.ativo = false;

@@ -50,6 +50,11 @@ public class Restaurante {
         this.cnpj = dados.cnpj();
     }
 
+
+    public Restaurante(Long id) {
+        this.id = id;
+    }
+
     public void desativarRestaurante(){
         this.ativo = false;
     }
