@@ -5,6 +5,7 @@ import com.gs.api.domain.AlimentoRepository;
 import com.gs.api.domain.Restaurante;
 import com.gs.api.domain.RestauranteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,7 +28,8 @@ public class AlimentoService {
     }
 
     public List<Alimento> todosAlimentosAtivos(){
-        return alimentoRepository.findAllByAtivoTrue();
+        Sort sort = Sort.by("dataCadastro").descending();
+        return alimentoRepository.findAllByAtivoTrue(sort);
     }
 
     public Alimento removerAlimento(Long id){

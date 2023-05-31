@@ -19,6 +19,8 @@ public class RestauranteController {
 
     @PostMapping("/restaurantes")
     public ResponseEntity<Restaurante> salvarRestaurante(@RequestBody RestauranteDTO dados){
+        validarCNPJ(dados.cnpj());
+        validarEmail(dados.email());
         var newRestaurante = new Restaurante(dados);
         Restaurante restauranteSalvo = restauranteService.salvarRestaurante(newRestaurante);
         return ResponseEntity.ok(restauranteSalvo);
@@ -38,6 +40,18 @@ public class RestauranteController {
     public ResponseEntity<List<Restaurante>> todosRestaurantes(){
         List<Restaurante> restaurantesAtivos = restauranteService.todosRestaurantesAtivos();
         return ResponseEntity.ok(restaurantesAtivos);
+    }
+
+    public void validarEmail(String email){
+        if(!email.contains("@")){
+            throw new IllegalArgumentException("email inválido");
+        }
+    }
+
+    public void validarCNPJ(String cnpj){
+        if(cnpj.length() != 14){
+            throw new IllegalArgumentException("CNPJ inválido");
+        }
     }
 
 }

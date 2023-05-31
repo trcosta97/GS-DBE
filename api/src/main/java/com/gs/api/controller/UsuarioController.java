@@ -23,6 +23,8 @@ public class UsuarioController {
     @PostMapping("/usuarios")
     @Transactional
     public ResponseEntity<Usuario> salvarUsuario(@RequestBody UsuarioDTO dados){
+        validarCNPJ(dados.cnpj());
+        validarEmail(dados.email());
         var newUsuario = new Usuario(dados);
         Usuario usuarioSalvo = usuarioService.salvarUsuario(newUsuario);
         return ResponseEntity.ok(usuarioSalvo);
@@ -35,6 +37,18 @@ public class UsuarioController {
             return ResponseEntity.ok("Login realizado com sucesso!");
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Dados de login inválidos");
+        }
+    }
+
+    public void validarEmail(String email){
+        if(!email.contains("@")){
+            throw new IllegalArgumentException("email inválido");
+        }
+    }
+
+    public void validarCNPJ(String cnpj){
+        if(cnpj.length() != 14){
+            throw new IllegalArgumentException("CNPJ inválido");
         }
     }
 }
