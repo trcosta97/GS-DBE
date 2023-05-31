@@ -47,7 +47,7 @@ problemas de logística.
 
 ## Instalação e execução da API
 
-A API foi desenvolvida usando  Java 17 e com o framework Spring + Gradle.
+A API foi desenvolvida usando  Java 17 e com o framework Spring + Gradle e banco de dados relacional Oracle SQL.
 O primeiro passo é buildar a aplicação. Abra um prompt de comando na pasta raiz do projeto e execute o comando:
 ```console
 admin:~$ gradle build
@@ -56,7 +56,9 @@ admin
 Se o seu Java e Gradle estiverem configurados corretamente, o projeto deve buildar sem problemas e estar pronto para a inicialização.
 O próximo passo é executar o método Main presente na classe ApiApplication que se encontra no caminho *src/main/java/com/gs/api*.
 
-O projeto contém um swagger, que é um console que roda junto com o programa e serve para testes. Ele oferece uma interface gráfica html com todos os endpoints e seus respectivos *json* formatados já com o os campos necesários para cada endpoint e o tipo de dado que ele precisa. 
+O projeto contém um swagger, que é um console que roda junto com o programa e serve para testes. Ele oferece uma interface gráfica html com todos os endpoints e seus respectivos *json* formatados já com o os campos necesários para cada endpoint e o tipo de dado que ele precisa.
+
+A configuração do banco de dados é feita pelo arquivo application.properties. Lá é possível que mudar o login, senha e endereço do seu banco de dados Oracle.
 
 ### Lista de ENDPOINTS:  
 
