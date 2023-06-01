@@ -34,5 +34,9 @@ public class RestauranteService {
         return optionalRestaurante.orElse(null);
     }
 
+    public Restaurante findRestauranteByNome(String nome){
+        return restauranteRepository.findByNome(nome);
+    }
+
 
 }

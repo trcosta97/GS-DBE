@@ -42,6 +42,12 @@ public class RestauranteController {
         return ResponseEntity.ok(restaurantesAtivos);
     }
 
+    @GetMapping("/restaurante/busca")
+    public ResponseEntity<Restaurante> buscaPorNome(@RequestParam String nome){
+        Restaurante restaurante = restauranteService.findRestauranteByNome(nome);
+        return ResponseEntity.ok(restaurante);
+    }
+
     public void validarEmail(String email){
         if(!email.contains("@")){
             throw new IllegalArgumentException("email inválido");
@@ -53,5 +59,7 @@ public class RestauranteController {
             throw new IllegalArgumentException("CNPJ inválido");
         }
     }
+
+
 
 }
