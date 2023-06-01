@@ -106,8 +106,10 @@ Endpoint responsável pelo login de restaurantes. Não funciona pede um *json*, 
 
 
 #### GET /restaurantes  
-Endpoint que retorna lista com todos os restaurantes listados por ordem de cadastro. Não pede *json*.  
+Endpoint que retorna lista com todos os restaurantes listados por ordem de cadastro. Não pede *json*, pede dois parametros: email (*String*) e senha (*String*).  
 
+#### GET /restaurantes/busca  
+Endpoint que retorna restaurante a partir do nome. Não pede *json*, pede o parametro nome (*String*)
 
 #### POST /alimentos  
 Endpoint responsável pelo cadastro de alimentos. Recebe o id do restaurante que faz a doação e uma lista de strings com os alimentos.  
