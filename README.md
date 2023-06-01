@@ -66,6 +66,7 @@ A configuração do banco de dados é feita pelo arquivo application.properties.
 #### POST /usuarios
 Endpoint responsável pelo cadastro de novos usuário. Contém validação de email (precisa conter "@") e de CNPJ (14 digitos).  
 *Json*:  
+  ```console
   {  
   "nome": "string",  
   "email": "string",  
@@ -79,6 +80,7 @@ Endpoint responsável pelo cadastro de novos usuário. Contém validação de em
     "complemento": "string"  
   }
 }
+ ```
 
 #### POST /usuarios/login  
 Endpoint responsável pelo login de usuários. Não funciona pede um *json*, mas sim 2 parametros: email e senha, e busca no banco por usuários cadastrados com o mesmo login e senha informados.  
@@ -87,6 +89,7 @@ Endpoint responsável pelo login de usuários. Não funciona pede um *json*, mas
 #### POST /restaurantes/  
 Endpoint responsável pelo cadastro de novos usuário. Contém validação de email (precisa conter "@") e de CNPJ (14 digitos).  
 *Json*:  
+  ```console
   {  
   "nome": "string",  
   "email": "string",  
@@ -100,7 +103,7 @@ Endpoint responsável pelo cadastro de novos usuário. Contém validação de em
     "complemento": "string"  
   }  
 }  
-  
+  ```
 #### POST /restaurantes/login  
 Endpoint responsável pelo login de restaurantes. Não funciona pede um *json*, mas sim 2 parametros: email e senha, e busca no banco por restaurantes cadastrados com o mesmo login e senha informados.  
 
@@ -114,17 +117,18 @@ Endpoint que retorna restaurante a partir do nome. Não pede *json*, pede o para
 #### POST /alimentos  
 Endpoint responsável pelo cadastro de alimentos. Recebe o id do restaurante que faz a doação e uma lista de strings com os alimentos.  
 *Json*:  
+  ```console
   {  
   "tags": [  
     "string"  
   ],  
   "restauranteDoadorId": 0  
 }
-
+```
 
 #### GET /alimentos  
 Endpoint que retorna lista com todos os alimentos listados por ordem de cadastro. Não pede *json*.  
 
 
 #### DELETE /alimentos  
-Endpoint responsável pela exclusão lógica de alimentos. Usado assim que um alimentos é escolhido por um usuário. Muda o atributo *ativo* do alimento de *true* pra *false*. Não necessita de *json*, recebe um paramentro *Id*.  
+Endpoint responsável pela exclusão lógica de alimentos. Usado assim que um alimentos é escolhido por um usuário. Muda o atributo *ativo* do alimento de *true* pra *false*. Não necessita de *json*, recebe um paramentro *Id* (*Long*).  
