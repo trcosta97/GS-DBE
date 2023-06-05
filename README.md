@@ -131,4 +131,54 @@ Endpoint que retorna lista com todos os alimentos listados por ordem de cadastro
 
 
 #### DELETE /alimentos  
-Endpoint responsável pela exclusão lógica de alimentos. Usado assim que um alimentos é escolhido por um usuário. Muda o atributo *ativo* do alimento de *true* pra *false*. Não necessita de *json*, recebe um paramentro *Id* (*Long*).  
+Endpoint responsável pela exclusão lógica de alimentos. Usado assim que um alimentos é escolhido por um usuário. Muda o atributo *ativo* do alimento de *true* pra *false*. Não necessita de *json*, recebe um paramentro *Id* (*Long*).
+
+## Validações
+Validações são feitas na camada *controller* da API para garantir que os dados que o usuário inserir no front end sejam condizentes com o tipo de informação que o banco espera armazenar. Mesmo existindo a possibilidade de criar essas validações no front end, é considerado boa prática realiza-la no back.  
+No nosso projeto são realizadas duas validações: de CNPJ e E-mail:
+
+```console
+public void validarEmail(String email){
+        if(!email.contains("@")){
+            throw new IllegalArgumentException("email inválido");
+        }
+    }
+
+    public void validarCNPJ(String cnpj){
+        if(cnpj.length() != 14){
+            throw new IllegalArgumentException("CNPJ inválido");
+        }
+    }
+
+```
+
+E os métodos são chamados na hora do cadastro de Restaurante e Usuário:
+
+```console
+ @PostMapping("/restaurantes")
+    public ResponseEntity<Restaurante> salvarRestaurante(@RequestBody RestauranteDTO dados){
+        validarCNPJ(dados.cnpj());
+        validarEmail(dados.email());
+        var newRestaurante = new Restaurante(dados);
+        Restaurante restauranteSalvo = restauranteService.salvarRestaurante(newRestaurante);
+        return ResponseEntity.ok(restauranteSalvo);
+    }
+
+```
+ 
+ ## Ordenação
+ O único endpoint de listagem de itens na nossa API é o de listagem de Alimentos, que retorna uma lista com todos os alimentos doados disponíveis para usuários recolherem. Essa lista é ordenada pela data de doação de cada alimento. Primeiro criando um método na camada repository que recebe um objeto *Sort*:
+ ```console
+ public interface AlimentoRepository extends JpaRepository<Alimento, Long> {
+    List<Alimento> findAllByAtivoTrue(Sort sort);
+}
+ ```
+ Depois, na camada *service*, esse método é chamado dentro na função que retorna a lista com todos os alimentos recebendo um objeto *Sort* definido com o atributo a ser usado como ordenador:
+```console
+      public List<Alimento> todosAlimentosAtivos(){
+        Sort sort = Sort.by("dataDoacao").descending();
+        return alimentoRepository.findAllByAtivoTrue(sort);
+    }
+```
+ 
+ 
