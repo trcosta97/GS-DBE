@@ -45,6 +45,9 @@ retirada, horário, entre outros detalhes logísticos que poderão ser tratados.
 comunicação direta facilita a colaboração, evitando desperdício devido a 
 problemas de logística.
 
+## Vídeo apresentação
+https://youtu.be/nfqINeYMloo
+
 ## Instalação e execução da API
 
 A API foi desenvolvida usando  Java 17 e com o framework Spring + Gradle e banco de dados relacional Oracle SQL.
