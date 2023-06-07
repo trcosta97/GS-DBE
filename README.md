@@ -1,6 +1,6 @@
 # Rest API - FoodHelp
 
-## Sobre o projeto:
+## Sobre o projeto
 
 A fome é um problema global que afeta milhões de pessoas em todo o mundo. 
 Segundo a Organização das Nações Unidas para a Alimentação e Agricultura 
